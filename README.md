@@ -1,28 +1,37 @@
-![Company Logo](https://aitaca.io/wp-content/uploads/2020/01/logo_loading.png)
-# Task Instruction: Coin Segmentation in Images
-### Task Description
-Your task is to develop a model or method for segmenting coins from images and produces accurate results. The dataset will be provided by Aitaca. 
+This notebook demonstrates how to use the GroundingDINO and SAM models to perform zero-shot coin segmentation task on the public_coin_dataset dataset.
 
-### Requirements
+## Ideas 
+Several ideas have been considered:
+- Idea 1: 2D detection using YOLO-like architectures with OpenCV for contour detection -> A good idea for controlled lighting and perspective, not applicable otherwise.
+- Idea 2: semantic segmentation of background/coins -> Viable option, can decrease performance with different coins and requires training.
+- Idea 3: zero-shot class-agnostic architectures like GroundingDINO and SAM with prompt engineering -> No training required, may need fine-tunning but not necessary for common tasks 
 
-1. **Dataset:** You should use this dataset for training and testing your model/method. The dataset can be accessed via the following Google Drive link: [https://drive.google.com/file/d/1cF-u9N7miok5-KUiriTdvA62edxIs1I_](https://drive.google.com/file/d/1cF-u9N7miok5-KUiriTdvA62edxIs1I_). Make sure to download and use this dataset for your task.
+Idea 3 has been implemented
 
-2. **Programming Language:** You should use Python for this task. You can choose to work in a Python notebook (e.g., Jupyter Notebook) or submit a Python script.
+## Requirements
+- Folder structure: the code automatically retrieves the dataset, extracts its contents, and creates a new distribution.
+- Necessary installations and imports are include in the source code
+- Weights are from HuggingFace or offical repositories (automatic download)
+## Instructions
 
-3. **Methods:** You are free to choose any methods you see fit to achieve accurate coin segmentation. This may include neural networks, image processing techniques, or a combination of both.
+To run the notebook, follow these steps:
 
-4. **Submission:**
-   - Ensure that your code is organized and includes all necessary components for the task. If you use any data processing steps as part of your solution, include that code as well.
-   - If you choose to work with neural networks, please submit the trained model along with the code used for training.
-   - If you find and use pre-trained neural networks, include the details and sources of those networks.
-   - Include a part in your code where you visualize the segmentation results on a subset of the dataset's images.
+1. Download the notebook and the public_coin_dataset dataset.
+2. Open the notebook in Colab.
+3. Click the **Runtime** menu and select **Change runtime type**.
+4. Select the **GPU** runtime type and click **Save**.
+5. Click the **Runtime** menu again and select **Run all**.
 
-6. **Code Documentation:** Ensure that your code includes documentation, comments, and a separate README file that explains how to use your code and details the submitted code, including any specific dependencies or setup instructions. If your code relies on specific data folder structures or arrangements, please provide an explanation in the README file about how the data should be organized within the repository.
+Once the notebook has finished running, you can view the segmentation results in the output cells.
 
-7. **Submission Format:** You must fork this respository and upload all your work to the fork repository.
+## Results
 
-8. **Contact Information:** If you have any questions or need clarification regarding the task, please contact [tech@aitaca.io](mailto:tech@aitaca.io).
+The mIoU for the segmentation results on the public_coin_dataset dataset is **96.04%**.
 
-9. **Confidentiality:** Please ensure that you respect any confidentiality agreements or data usage restrictions related to the dataset provided.
+## Improvements
 
-We look forward to reviewing your work and assessing your skills as a Machine Learning Engineer. Good luck with the task!
+As an improvement, SAM can be fine-tuned or adjusted for a softer border segmentation.
+
+## Conclusion
+
+This zero-shot pipeline based on 2D bounding boxes proposal + semantic + text prompt works fine for coin segmentation.
